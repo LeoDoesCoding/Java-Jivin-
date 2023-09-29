@@ -1,28 +1,37 @@
+package MyZoo;
+
 import java.util.Collections;
 import java.util.ArrayList;
 /*
 Program description:
 Console program.
-uses: Interfaces, Objects, sorting
+uses: Generics, interfaces, Objects, sorting
 Creates a group of animals and orders them by size using the compareTo interface.
  */
 
 public class sortedZoo {
     public static void main(String[] args) {
-        //Animal[] myAnimals = new Animal[3]; DOES NOT WORK WITH ARRAYS
+        //MyZoo.Animal[] myAnimals = new MyZoo.Animal[3]; DOES NOT WORK WITH ARRAYS
         ArrayList<Animal> myAnimals = new ArrayList<>();
         myAnimals.add(new Animal(7F));
         myAnimals.add(new Insect(1.2F, false));
         myAnimals.add(new Dog(5.5F));
         myAnimals.add(new Insect(2F, true));
 
+        //Print information of animals
+        System.out.println("Welcome to our zoo. We have:");
         Collections.sort(myAnimals);
         myAnimals.stream().forEach(Animal -> {System.out.println(Animal.getInfo());});
+
+        //Let's make an animal choir...
+        System.out.println("\nAnd now... A performance from our choir group.");
+        NOISETIME<Animal> myChoir = new NOISETIME<Animal>(myAnimals.get(0));
+        myChoir.addAnother(myAnimals.get(1));
+        myChoir.lessgo(); //Noise time!
     }
 }
 
-
-//Animal class. All animals have an ID, size and sound
+//MyZoo.Animal class. All animals have an ID, size and sound
 class Animal implements Comparable<Animal>{
     protected int ID;
     protected float size;
@@ -66,7 +75,7 @@ class Insect extends Animal {
     public Insect(float size, boolean wings) {
         super(size);
         this.wings = wings;
-        this.type = "Insect";
+        this.type = "insect";
         this.sound = "honk."; //Look man, I don't know what a fly says!
     }
 }
@@ -77,7 +86,7 @@ class Dog extends Animal {
     //Must enter size. Sound and type set automatically.
     public Dog(float size) {
         super(size);
-        this.type = "Dog";
+        this.type = "dog";
         this.sound = "Woof.";
     }
 }
